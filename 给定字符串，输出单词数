@@ -1,0 +1,27 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int re_search(string st)//this is the first time you're flying by yourself 
+{
+    int i = 0, temp = 0, num = 0,len;
+    /*len = st.length();*/
+    for (i = 0; /*i<len*/st[i] != '\0'; i++)
+    {
+        if ((st[i] != ' ')&&(temp == 0))
+        {
+            temp = 1;
+            num++;
+        }
+        else if (st[i] ==' ')
+            temp = 0;
+    }
+    return num;
+}
+int main()
+{
+    string user_input;
+    getline(cin,user_input);
+    cout << re_search(user_input) << endl;
+
+}
