@@ -1,0 +1,90 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	//Matrix 1
+	int no_of_rows, no_of_cols;
+	int i, j;
+	float** data;
+	cout << "Number of rows:";
+	cin >> no_of_rows;
+	cout << "Number of cols:";
+	cin >> no_of_cols;
+	data = new float* [no_of_rows];
+	for (i = 0; i < no_of_rows; i++)
+		data[i] = new float[no_of_cols];
+	for (i = 0; i < no_of_rows; i++)
+		for (j = 0; j < no_of_cols; j++)
+		{
+			cin >> data[i][j];
+			if (j == no_of_cols - 1)
+				cout << endl;
+		}
+	//Matrix 2
+	int no_of_rows1, no_of_cols1;
+	int i1, j1;
+	float** data1;
+	cout << "Number of rows:";
+	cin >> no_of_rows1;
+	cout << "Number of cols:";
+	cin >> no_of_cols1;
+	data1 = new float* [no_of_rows1];
+	for (i1 = 0; i1 < no_of_rows1; i1++)
+		data1[i1] = new float[no_of_cols1];
+	for (i1 = 0; i1 < no_of_rows1; i1++)
+		for (j1 = 0; j1 < no_of_cols1; j1++)
+		{
+			cin >> data1[i1][j1];
+			if (j1 == no_of_cols1 - 1)
+				cout << endl;
+		}
+	//创建动态二维数组:结果矩阵
+	float** result;
+	result = new float* [no_of_rows];
+	for (i = 0; i < no_of_rows; i++)
+		result[i] = new float[no_of_cols1];
+	//初始化结果矩阵
+	for (i = 0; i < no_of_rows; i++)
+		for (j1 = 0; j1 < no_of_cols1; j1++)
+			result[i][j1] = 0;
+
+	if (j != i1)
+	{
+		cout << "error";
+	}
+	if (j == i1)
+	{
+		for (i = 0; i < no_of_rows; i++)
+			for (j1 = 0; j1 < no_of_cols1; j1++)
+			{
+				for (j = 0, i1 = 0; j < no_of_cols/*"j < no_of_cols 这一小段可加可不加，因为他与"i1 < no_of_rows"效果相同"，所以编译器在此处有警报*/, i1 < no_of_rows1; j++, i1++)
+				{
+					result[i][j1] += data[i][j] * data1[i1][j1];
+				}
+			}
+			
+		cout << "result:" << endl;
+		for (i = 0; i < no_of_rows; i++)
+			for (j1 = 0; j1 < no_of_cols1; j1++)
+			{
+				cout << result[i][j1]<<" ";
+				if (j1 == no_of_cols1 - 1)
+					cout << endl;
+			}
+	}
+	//释放动态数组
+	//释放二维数组data
+	for (i = 0; i < no_of_rows; i++)
+		delete[] data[i];
+	delete[] data;
+	//释放二维数组data1
+	for (i1 = 0; i1 < no_of_rows1; i1++)
+		delete[] data1[i1];
+	delete[] data1;
+	//释放二维数组:结果数组
+	for (i = 0; i < no_of_rows; i++)
+		delete[] result[i];
+	delete[] result;
+	return 0;
+}
